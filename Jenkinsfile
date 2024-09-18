@@ -24,11 +24,14 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
+                     withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     bat '''
-                        docker build -t %DOCKER_IMAGE_NAME% .
+                        echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin ${DOCKER_REGISTRY}
+                        docker build -t my-python-app .
                         docker tag my-python-app my-docker-registry/my-python-app:latest
                         docker push my-docker-registry/my-python-app:latest
                     '''
+                     }
                 }
             }
         }
