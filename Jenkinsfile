@@ -26,8 +26,8 @@ pipeline {
                     // Build Docker image
                     bat '''
                         docker build -t %DOCKER_IMAGE_NAME% .
-                        docker tag %DOCKER_IMAGE_NAME% %DOCKER_REGISTRY%/%DOCKER_IMAGE_NAME%:latest
-                        docker push %DOCKER_REGISTRY%/%DOCKER_IMAGE_NAME%:latest
+                        docker tag my-python-app my-docker-registry/my-python-app:latest
+                        docker push my-docker-registry/my-python-app:latest
                     '''
                 }
             }
