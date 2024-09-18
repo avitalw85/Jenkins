@@ -26,10 +26,10 @@ pipeline {
                     // Build Docker image
                      withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     bat '''
-                        echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin ${DOCKER_REGISTRY}
+                        echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin %DOCKER_REGISTRY%
                         docker build -t my-python-app .
-                        docker tag my-python-app my-docker-registry/my-python-app:latest
-                        docker push my-docker-registry/my-python-app:latest
+                        docker tag my-python-app myregistry.com/my-python-app:latest
+                        docker push myregistry.com/my-python-app:latest
                     '''
                      }
                 }
